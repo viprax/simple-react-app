@@ -1,7 +1,6 @@
 import React from "react";
 
-export const Header = () => {
-    return(
+export const Header = () => (
         <header>
             <div className='headerLeft'>
                 <img src="/img/logo.png" alt="Logo" height={40} width={40}/>
@@ -23,4 +22,3 @@ export const Header = () => {
             </div>
         </header>
     )
-}

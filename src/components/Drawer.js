@@ -1,16 +1,14 @@
 import React from "react";
 import backgroundImage from "../img/sneakers/sneakers-1.png";
 
-export const Drawer = () => {
-    return(
+export const Drawer = () => (
         <div  className="overlay">
             <div className="drawer">
                 <h2>Корзина <img className="removeBtn" src="/img/btn-remove.svg" alt="Remove"/></h2>
                 <div className="items">
                     <div className="cartItem">
                         <div style={{backgroundImage: `url(${backgroundImage})`}}
-                             className="cartItemImg">
-                        </div>
+                             className="cartItemImg" />
                         <div className="cartInfo">
                             <p>Мужские Кроссовки Nike Air Max 270</p>
                             <b>12 999 руб.</b>
@@ -19,8 +17,7 @@ export const Drawer = () => {
                     </div>
                     <div className="cartItem">
                         <div style={{backgroundImage: `url(${backgroundImage})`}}
-                             className="cartItemImg">
-                        </div>
+                             className="cartItemImg" />
                         <div className="cartInfo">
                             <p>Мужские Кроссовки Nike Air Max 270</p>
                             <b>12 999 руб.</b>
@@ -32,18 +29,17 @@ export const Drawer = () => {
                     <ul>
                         <li>
                             <span>Итого: </span>
-                            <div></div>
+                            <div />
                             <b>21 498 руб. </b>
                         </li>
                         <li>
                             <span>Налог 5%: </span>
-                            <div></div>
+                            <div />
                             <b>1074 руб. </b>
                         </li>
                     </ul>
-                    <button className="confirmButton">Оформить заказ <img src="/img/arrow.svg" alt="arrow"/> </button>
+                    <button type="button" className="confirmButton">Оформить заказ <img src="/img/arrow.svg" alt="arrow"/></button>
                 </div>
             </div>
         </div>
     )
-}

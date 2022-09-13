@@ -1,7 +1,6 @@
 import React from "react";
 
-export const Card = ()=> {
-    return(
+export const Card = () => (
         <div className="card">
             <div className="cardFavourite">
                 <img src="/img/heart-default.svg" alt="Unliked"/>
@@ -13,10 +12,9 @@ export const Card = ()=> {
                     <p>Цена: </p>
                     <b>12 999 руб.</b>
                 </div>
-                <button className="cardButton">
-                    <img src="/img/plus.svg" width={11} height={11}/>
+                <button type="button" className="cardButton">
+                    <img src="/img/plus.svg" alt="Add to card" width={11} height={11}/>
                 </button>
             </div>
         </div>
     )
-}
