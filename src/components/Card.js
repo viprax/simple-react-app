@@ -27,7 +27,7 @@ export const Card = (props) => (
       type="button"
       className={classes.plus}
       onClick={() => setIsAdded(!isAdded)}
-      ><img src="/img/btn-unchecked.svg" alt="Add to cart"/></button>
+      ><img src={isAdded ? "/img/btn-unchecked.svg" : "/img/btn-checked.svg"} alt="Add to cart"/></button>
     </div>
   </div>
 );
