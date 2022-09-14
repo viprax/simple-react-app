@@ -1,20 +1,49 @@
-import React from "react";
+/* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import classes from "./modules/Card.module.scss";
 
-export const Card = () => (
-        <div className="card">
-            <div className="cardFavourite">
-                <img src="/img/heart-default.svg" alt="Unliked"/>
-            </div>
-            <img src="/img/sneakers/sneakers-1.png" alt="Sneakers" width={133} height={112}/>
-            <h5>Мужские Кроссовки Nike Blazer Mid Suede</h5>
-            <div className="cardBottom">
-                <div className="cardInfo">
-                    <p>Цена: </p>
-                    <b>12 999 руб.</b>
-                </div>
-                <button type="button" className="cardButton">
-                    <img src="/img/plus.svg" alt="Add to card" width={11} height={11}/>
-                </button>
-            </div>
-        </div>
-    )
+
+const [isAdded, setIsAdded] = useState(false)
+
+export const Card = (props) => (
+
+  <div className={classes.card}>
+    <button
+      type="button"
+      className={classes.cardFavourite}
+      onClick={props.handleCLickFavourite}
+    >
+      <img src="/img/heart-default.svg" alt="Add to favourite"/>
+    </button>
+    <img src={props.imgUrl} alt="Sneakers" width={133} height={112}/>
+    <h5>{props.title}</h5>
+    <div className={classes.cardBottom}>
+      <div className={classes.cardInfo}>
+          <p>Цена: </p>
+          <b>{props.price} руб.</b>
+      </div>
+      <button
+      type="button"
+      className={classes.plus}
+      onClick={() => setIsAdded(!isAdded)}
+      ><img src="/img/btn-unchecked.svg" alt="Add to cart"/></button>
+    </div>
+  </div>
+);
+
+Card.defaultProps = {
+  title: 'Title',
+  imgUrl: 'https://via.placeholder.com/50',
+  price: null,
+  handleCLickAdd: null,
+  handleCLickFavourite: null
+}
+
+Card.propTypes = {
+  title: PropTypes.string,
+  imgUrl: PropTypes.string,
+  price: PropTypes.number,
+  handleCLickAdd: PropTypes.func,
+  handleCLickFavourite: PropTypes.func
+};

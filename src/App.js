@@ -4,6 +4,16 @@ import { Card } from './components/Card';
 import { Header } from './components/Header';
 import { Drawer } from './components/Drawer';
 
+ const cards = [
+   { title: 'Мужские кроссовки Nike Blazer Mid Suede',
+     price: 12999,
+     imgUrl: "/img/sneakers/sneakers-1.png"},
+
+   { title: 'Мужские Кроссовки Nike Air Max 270',
+     price: 12999,
+     imgUrl: "/img/sneakers/sneakers-2.png"}
+ ]
+
 function App() {
   return (
     <div className="wrapper clear">
@@ -19,10 +29,17 @@ function App() {
         </div>
       </div>
       <div className="sneakers">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {
+          cards.map((obj) => (
+            <Card
+              title={obj.title}
+              imgUrl={obj.imgUrl}
+              price={obj.price}
+              handleCLickAdd={() => console.log("Added to card")}
+              handleCLickFavourite={() => console.log("Added to favourite")}
+            />
+          ))
+        }
       </div>
     </div>
   );
