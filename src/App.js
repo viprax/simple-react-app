@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Card } from './components/Card';
 import { Header } from './components/Header';
@@ -15,10 +15,12 @@ import { Drawer } from './components/Drawer';
  ]
 
 function App() {
+   const [isCartOpened, setIsCartOpened] = useState(false)
+
   return (
     <div className="wrapper clear">
-      <Drawer />
-      <Header />
+      { isCartOpened && <Drawer onClose={()=> setIsCartOpened(false)}/>}
+      <Header onCartOpen={() => setIsCartOpened(true)}/>
       <div className="content">
         <div className="contentInfo">
           <h1 className="contentTitle">Все кроссовки</h1>
@@ -35,8 +37,6 @@ function App() {
               title={obj.title}
               imgUrl={obj.imgUrl}
               price={obj.price}
-              handleCLickAdd={() => console.log("Added to card")}
-              handleCLickFavourite={() => console.log("Added to favourite")}
             />
           ))
         }

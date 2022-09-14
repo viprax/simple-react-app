@@ -3,47 +3,26 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classes from "./modules/Card.module.scss";
 
-
-const [isAdded, setIsAdded] = useState(false)
-
-export const Card = (props) => (
-
-  <div className={classes.card}>
-    <button
-      type="button"
-      className={classes.cardFavourite}
-      onClick={props.handleCLickFavourite}
-    >
-      <img src="/img/heart-default.svg" alt="Add to favourite"/>
-    </button>
-    <img src={props.imgUrl} alt="Sneakers" width={133} height={112}/>
-    <h5>{props.title}</h5>
-    <div className={classes.cardBottom}>
-      <div className={classes.cardInfo}>
+export const Card = ({ title = 'Title', price = null, imgUrl = 'https://via.placeholder.com/50' }) => {
+  const [isAdded,setIsAdded] = useState(false)
+  const [isFavourite,setIsFavourite] = useState(false)
+    return(
+    <div className={classes.card}>
+        <img className={classes.cardFavourite} onClick={() => setIsFavourite(!isFavourite)} src={isFavourite ? "/img/hear-favourite.svg" : "/img/heart-default.svg"} alt="Add to favourite"/>
+      <img src={imgUrl} alt="Sneakers" width={133} height={112}/>
+      <h5>{title}</h5>
+      <div className={classes.cardBottom}>
+        <div className={classes.cardInfo}>
           <p>Цена: </p>
-          <b>{props.price} руб.</b>
+          <b>{price} руб.</b>
+        </div>
+        <img onClick={() => setIsAdded(!isAdded)} className={classes.plus} src={isAdded ? "/img/btn-checked.svg" : "/img/btn-unchecked.svg"} alt="Add to cart"/>
       </div>
-      <button
-      type="button"
-      className={classes.plus}
-      onClick={() => setIsAdded(!isAdded)}
-      ><img src={isAdded ? "/img/btn-unchecked.svg" : "/img/btn-checked.svg"} alt="Add to cart"/></button>
     </div>
-  </div>
-);
-
-Card.defaultProps = {
-  title: 'Title',
-  imgUrl: 'https://via.placeholder.com/50',
-  price: null,
-  handleCLickAdd: null,
-  handleCLickFavourite: null
-}
+  )};
 
 Card.propTypes = {
   title: PropTypes.string,
   imgUrl: PropTypes.string,
-  price: PropTypes.number,
-  handleCLickAdd: PropTypes.func,
-  handleCLickFavourite: PropTypes.func
+  price: PropTypes.number
 };

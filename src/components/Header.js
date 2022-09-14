@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import classes from "./modules/Header.module.scss";
 
-export const Header = () => (
+export const Header = ({onCartOpen = () => undefined}) => (
   <header>
     <div className={classes.headerLeft}>
       <img src="/img/logo.png" alt="Logo" height={40} width={40}/>
@@ -12,7 +13,7 @@ export const Header = () => (
     </div>
     <div>
       <ul className={classes.headerRight}>
-        <li>
+        <li onClick={onCartOpen} className={classes.headerCart}>
           <img src="/img/cart.svg" alt="Cart" width={18} height={18}/>
           <span>1205руб.</span>
         </li>
@@ -23,3 +24,7 @@ export const Header = () => (
     </div>
   </header>
 );
+
+Header.propTypes = {
+  onCartOpen: PropTypes.func
+}
