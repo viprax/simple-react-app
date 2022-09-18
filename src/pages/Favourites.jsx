@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Card } from "../components/Card";
 
-export const Favourites = (items) => (
+export const Favourites = ({items = []}) => (
   <div>
     <div className="content">
       <div className="contentInfo">
-        <h1 className="contentTitle">Мои закладки</h1>
+        <h1 className="contentTitle">Список желаемого</h1>
       </div>
     </div>
     <div className="sneakers">
@@ -20,3 +21,12 @@ export const Favourites = (items) => (
     </div>
   </div>
 );
+
+Favourites.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    imgUrl: PropTypes.string,
+    price: PropTypes.number,
+  })),
+
+}

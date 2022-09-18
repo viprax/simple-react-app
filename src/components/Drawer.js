@@ -11,12 +11,13 @@ export const Drawer = ({
     <div className={classes.drawer}>
       <h2>
         Корзина
-        <img
-          onClick={onClose}
-          className={classes.drawerClose}
-          src="/img/btn-remove.svg"
-          alt="Close"
-        />
+        <button type="button" onClick={onClose}>
+          <img
+            className={classes.drawerClose}
+            src="/img/btn-remove.svg"
+            alt="Close"
+          />
+        </button>
       </h2>
 
       {items.length > 0 ? (
@@ -32,12 +33,14 @@ export const Drawer = ({
                   <p>{obj.title}</p>
                   <b>{obj.price} руб.</b>
                 </div>
-                <img
-                  className={classes.removeBtn}
-                  src="/img/btn-remove.svg"
-                  alt="Remove"
-                  onClick={() => onRemove(obj.id)}
-                />
+                <button type="button" onClick={() => onRemove(obj.id)}>
+                  <img
+                    className={classes.removeBtn}
+                    src="/img/btn-remove.svg"
+                    alt="Remove"
+                  />
+                </button>
+
               </div>
             ))}
           </div>
@@ -80,6 +83,10 @@ export const Drawer = ({
 
 Drawer.propTypes = {
   onClose: PropTypes.func,
-  items: PropTypes.arrayOf(),
+  items: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    imgUrl: PropTypes.string,
+    price: PropTypes.number,
+  })),
   onRemove: PropTypes.func,
 };

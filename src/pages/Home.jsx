@@ -1,14 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Card } from "../components/Card";
 
-export const Home = (
-  items,
-  searchValue,
-  setSearchValue,
-  handleChangeSearchInput,
-  onAddToCart,
-  onAddToWishList,
-) => (
+export const Home = ({
+  items = [],
+  searchValue = "",
+  setSearchValue = () => undefined,
+  handleChangeSearchInput = () => undefined,
+  onAddToCart = () => undefined,
+  onAddToWishList = () => undefined,
+}) => (
   <div>
     <div className="content">
       <div className="contentInfo">
@@ -18,12 +19,9 @@ export const Home = (
         <div className="search-block">
           <img src="/img/search.svg" alt="Search" />
           {searchValue && (
-            <img
-              onClick={() => setSearchValue("")}
-              className="clear"
-              src="/img/btn-remove.svg"
-              alt="close"
-            />
+            <button type="button" onClick={() => setSearchValue("")}>
+              <img className="clear" src="/img/btn-remove.svg" alt="close" />
+            </button>
           )}
           <input
             onChange={handleChangeSearchInput}
@@ -56,3 +54,18 @@ export const Home = (
     </div>
   </div>
 );
+
+Home.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      imgUrl: PropTypes.string,
+      price: PropTypes.number,
+    }),
+  ),
+  searchValue: PropTypes.string,
+  setSearchValue: PropTypes.func,
+  handleChangeSearchInput: PropTypes.func,
+  onAddToCart: PropTypes.func,
+  onAddToWishList: PropTypes.func,
+};
