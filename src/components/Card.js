@@ -5,16 +5,26 @@ import classes from "./modules/Card.module.scss";
 
 export const Card = ({
   title = "Title",
-  price = null,
+  price = 0,
   imgUrl = "https://via.placeholder.com/50",
+  onPlus = () => undefined,
+  onFavourite = () => undefined,
 }) => {
   const [isAdded, setIsAdded] = useState(false);
   const [isFavourite, setIsFavourite] = useState(false);
+  const handleClickAdd = () => {
+    onPlus({ title, price, imgUrl });
+    setIsAdded(!isAdded);
+  };
+  const handleClickFavourite = () => {
+    onFavourite({ title, price, imgUrl });
+    setIsFavourite(!isFavourite);
+  };
   return (
     <div className={classes.card}>
       <img
         className={classes.cardFavourite}
-        onClick={() => setIsFavourite(!isFavourite)}
+        onClick={handleClickFavourite}
         src={isFavourite ? "/img/hear-favourite.svg" : "/img/heart-default.svg"}
         alt="Add to favourite"
       />
@@ -26,7 +36,7 @@ export const Card = ({
           <b>{price} руб.</b>
         </div>
         <img
-          onClick={() => setIsAdded(!isAdded)}
+          onClick={handleClickAdd}
           className={classes.plus}
           src={isAdded ? "/img/btn-checked.svg" : "/img/btn-unchecked.svg"}
           alt="Add to cart"
@@ -40,4 +50,6 @@ Card.propTypes = {
   title: PropTypes.string,
   imgUrl: PropTypes.string,
   price: PropTypes.number,
+  onPlus: PropTypes.func,
+  onFavourite: PropTypes.func,
 };

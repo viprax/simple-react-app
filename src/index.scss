@@ -5,6 +5,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #e7f6ff;
+  overflow: auto;
 }
 
 * {
@@ -17,6 +18,7 @@ body {
   border-radius: 20px;
   max-width: 1080px;
   margin: 50px auto;
+  overflow: auto;
 }
 
 .clear {
@@ -127,6 +129,7 @@ header {
 
 .sneakers {
   display: flex;
+  flex-wrap: wrap;
   padding: 40px;
 }
 
@@ -135,6 +138,15 @@ header {
   border: 1px solid #F3F3F3;
   border-radius: 10px;
   padding: 0 16px;
+  position: relative;
+
+  .clear {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    cursor: pointer;
+  }
+
   input {
     border: 0;
     padding: 10px;

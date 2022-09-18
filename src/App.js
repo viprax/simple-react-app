@@ -1,44 +1,81 @@
 import React, { useState } from "react";
-
-import { Card } from "./components/Card";
+import axios from "axios";
+import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Drawer } from "./components/Drawer";
-
-const cards = [
-  {
-    title: "Мужские кроссовки Nike Blazer Mid Suede",
-    price: 12999,
-    imgUrl: "/img/sneakers/sneakers-1.png",
-  },
-
-  {
-    title: "Мужские Кроссовки Nike Air Max 270",
-    price: 12999,
-    imgUrl: "/img/sneakers/sneakers-2.png",
-  },
-];
+import { Home } from "./pages/Home";
+import { Favourites } from "./pages/Favourites";
 
 function App() {
+  const [items, setItems] = React.useState([]);
+  const [cartItems, setCartItems] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState("");
   const [isCartOpened, setIsCartOpened] = useState(false);
+  const [wishList, setWishList] = useState([]);
+  React.useEffect(() => {
+    axios
+      .get("https://6322075efd698dfa29059061.mockapi.io/items")
+      .then((res) => {
+        setItems(res.data);
+      });
+    axios
+      .get("https://6322075efd698dfa29059061.mockapi.io/cart")
+      .then((res) => {
+        setCartItems(res.data);
+      });
+    axios
+      .get("https://6322075efd698dfa29059061.mockapi.io/favourites")
+      .then((res) => {
+        setWishList(res.data);
+      });
+  }, []);
+
+  const onAddToCart = (product) => {
+    axios
+      .post("https://6322075efd698dfa29059061.mockapi.io/cart", product)
+      .then((r) => console.log(`${r} get`));
+    setCartItems((prev) => [...prev, product]);
+  };
+
+  const onAddToWishList = (obj) => {
+    axios.post("https://6322075efd698dfa29059061.mockapi.io/wishlist", obj);
+    setWishList((prevState) => [...prevState, obj]);
+  };
+
+  const handleRemoveFromCart = (id) => {
+    axios.delete(`https://6322075efd698dfa29059061.mockapi.io/cart/${id}`);
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const handleChangeSearchInput = (e) => {
+    setSearchValue(e.target.value);
+  };
 
   return (
     <div className="wrapper clear">
-      {isCartOpened && <Drawer onClose={() => setIsCartOpened(false)} />}
+      {isCartOpened && (
+        <Drawer
+          items={cartItems}
+          onClose={() => setIsCartOpened(false)}
+          onRemove={handleRemoveFromCart}
+        />
+      )}
       <Header onCartOpen={() => setIsCartOpened(true)} />
-      <div className="content">
-        <div className="contentInfo">
-          <h1 className="contentTitle">Все кроссовки</h1>
-          <div className="search-block">
-            <img src="/img/search.svg" alt="Search" />
-            <input placeholder="Поиск ... " type="text" />
-          </div>
-        </div>
-      </div>
-      <div className="sneakers">
-        {cards.map((obj) => (
-          <Card title={obj.title} imgUrl={obj.imgUrl} price={obj.price} />
-        ))}
-      </div>
+      <Routes>
+        <Route path="/" exact>
+          <Home
+            items={items}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            handleChangeSearchInput={handleChangeSearchInput}
+            onAddToCart={onAddToCart}
+            onAddToWishList={onAddToWishList}
+          />
+        </Route>
+        <Route path="/favourites" exact>
+          <Favourites items={wishList} />
+        </Route>
+      </Routes>
     </div>
   );
 }
